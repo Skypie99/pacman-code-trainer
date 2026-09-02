@@ -6,15 +6,16 @@ A calm, modern terminal-command trainer. Guide the Phantom — a spectral termin
 
 Live at **[ghostcode.skypistudio.com](https://ghostcode.skypistudio.com)**.
 
-To run it locally, serve the folder and open it in your browser — for example:
+To run it locally, clone the repo, serve the folder, and open it in your browser:
 
 ```bash
-cd ~/Games/pacman-code-trainer && python3 -m http.server 8000
+git clone https://github.com/Skypie99/ghost-code.git
+cd ghost-code && python3 -m http.server 8000
 ```
 
 Then visit `http://localhost:8000`.
 
-**Controls:** mouse, or `1` `2` `3` `4` for the four command tokens. `↑ → ↓ ←` to aim. `H` 50/50 lifeline. `R` restart. `Esc` pause. `C` cycle category. `L` toggle Learn Mode. `?` help.
+**Controls:** mouse or touch (tap a token, or swipe toward one), or `1` `2` `3` `4` for the four command tokens. `↑ → ↓ ←` move focus, then Enter/Space. `H` 50/50 lifeline. `R` restart. `Esc` pause. `C` cycle category. `L` toggle Learn Mode. `T` cycle theme (system/light/dark). `?` help.
 
 ## Game modes
 
@@ -44,6 +45,5 @@ Categories: `"claude"` (Claude Code), `"mac"` (Mac terminal), `"git"`. You can i
 
 - `index.html` — the whole game (HTML + CSS + JS, no build step).
 - `cards.js` — the flashcard deck.
-- `assets/` — empty for now; reserved for sounds/sprites.
 
-Your high-score and mastered commands live in browser `localStorage` under the key `gc.v1`. Clearing site data wipes your progress.
+Your high score, mastered commands, and theme preference (system/light/dark) live in browser `localStorage` under the key `gc.v1`. Clearing site data wipes your progress.

@@ -14,7 +14,7 @@ Guide the Phantom — a spectral terminal cursor — and capture the right comma
 
 **Zero build, no framework, no TypeScript, no database.**
 
-- **Single file:** `index.html` (~1.3k lines, inline CSS+JS, lines 886–1516)
+- **Single file:** `index.html` (~3.3k lines, inline CSS+JS — the `<script>` boundaries drift as the file grows; always re-derive them with the grep in the Green Gate below, never hardcode a line range)
 - **Card deck:** `cards.js` (56 cards, `window.CARDS` array, 284 lines)
 - **Test:** `test/cards.test.js` (zero-dependency validator, catches card integrity bugs)
 - **CI:** `.github/workflows/ci.yml` (mirrors the local green gate)
@@ -159,7 +159,7 @@ div.appendChild(line2);
 The persist schema is `localStorage['gc.v1']` with these keys:
 ```javascript
 {
-  hi: string,              // player's name
+  hi: number,               // high score / best (NOT a player name — despite the field name)
   category: string,        // 'all', 'claude', 'mac', 'git', etc.
   cardStats: { [cardId]: { mastered: bool, difficulty: string } },
   mode: 'arcade' | 'learn', // current mode
@@ -178,7 +178,7 @@ const loadPersist = () => {
 
 const state = Object.assign({
   // defaults
-  hi: 'Player',
+  hi: 0,
   category: 'all',
   cardStats: {},
   mode: 'arcade',
@@ -207,7 +207,7 @@ The 50/50 Lifeline feature tracks `state.lifelinesLeft` in memory. It resets to 
 
 Why: Lifelines are a meta-game mechanic to balance a single session. Persisting them would let a player hoard lifelines across sessions, breaking the difficulty curve. Session-only keeps the game fair.
 
-**Extend this pattern:** Any new in-game state that resets between games should be session-only. Only persist data that survives an app restart (username, category preference, card statistics).
+**Extend this pattern:** Any new in-game state that resets between games should be session-only. Only persist data that survives an app restart (high score, category preference, card statistics).
 
 ### 5. **Session State vs. Persistent State**
 
@@ -220,7 +220,7 @@ Keep the mental model clean:
 - Game loop variables
 
 **Persistent** (survive app close/reopen, stored in `gc.v1`):
-- `hi` (player name)
+- `hi` (high score)
 - `category` (preferred filter)
 - `mode` ('arcade' or 'learn')
 - `cardStats` (per-card mastered flag, difficulty override)
@@ -234,7 +234,7 @@ state.lifelinesLeft = 3;
 state.missedThisRun = new Set();
 
 // Persistent state — initialized from localStorage, saved on close:
-state.hi = loadPersist().hi || 'Player';
+state.hi = loadPersist().hi || 0;
 state.category = loadPersist().category || 'all';
 ```
 
@@ -359,7 +359,7 @@ node test/cards.test.js
 ## Conventions
 
 ### Session Flow
-1. **Initialize:** Player enters name → stored in `hi`, persisted
+1. **Initialize:** Title screen loads; saved best score (`hi`), category, and mode load from `gc.v1`
 2. **Pick category:** Press `C` or click button → stored in `category`, persisted
 3. **Pick mode:** Click `ARCADE` or `LEARN` → stored in `mode`, persisted
 4. **Play:** Game loop picks random cards, player answers
@@ -409,9 +409,9 @@ Morgan reads these files and routes findings to the team or Sky. Don't flood Sky
 
 ## Recent Status
 
-- **Live:** The "terminal, not arcade" Ghost Code redesign is **shipped** at https://ghostcode.skypistudio.com (`origin/main` = `8496cd2`). 56 cards, calm dark terminal palette, green gate passing.
+- **Live:** The "terminal, not arcade" Ghost Code redesign is **shipped** at https://ghostcode.skypistudio.com (`origin/main` = `1e6b963`, 2026-09-02). 56 cards, calm dark terminal palette, green gate passing.
 - **Identity:** Calm, modern terminal-command trainer. Phantom mascot, `--accent` (`#3DD8C4`) keyed theme, Inter + JetBrains Mono. No more arcade/synthwave framing.
-- **In flight:** Identity/cross-engine + attribution pass on `attribution/ghost-code-credit-2026-06-18` (start-screen "Built by Sky Halisky" + Source credit, HUD relabel SCORE/BEST, `@supports` wordmark fallback, README/CLAUDE doc rebrand). Branch only — Sky-merge per Const. Art. 1; UI bits await Dani Design-Compiler review before UI-DONE.
+- **Shipped since the last sync:** the identity/attribution pass has merged (start-screen "Built by Sky Halisky" + Source credit, HUD relabel SCORE/BEST, `@supports` wordmark fallback) — no longer "in flight." Also shipped: the light-mode "Platinum" theme (dark-value-preserved tokenization, palette selection, mechanism + edge cases) with a `T` keyboard shortcut and a title-screen `THEME` button, plus a fix for that button being unreachable before a game started. Nothing is currently in flight for Ghost Code.
 - **Merge rule:** `main` is Sky's hand only — agents branch, Sky merges.
 
 ---

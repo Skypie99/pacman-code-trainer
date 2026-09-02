@@ -1,6 +1,11 @@
 # qa-reports INDEX — pacman-code-trainer
 _Maintained by Morgan. Read this FIRST, then drill into the ≤5 most-recent 🔴/🟡 reports. Status: 🟢 done/passed · 🟡 pending/attention · 🔴 blocker._
 
+## 2026-09-02 — Portfolio Cook Out Prompt 4 (public truth sync)
+- 🟢 [2026-09-02_GhostCode_CookoutP4_PublicTruthSync.md](2026-09-02_GhostCode_CookoutP4_PublicTruthSync.md) — deck/mode/control/theme/persistence audit against source + real interaction; fixed a `CLAUDE.md` error (`hi` documented as a player name, actually the numeric high score) plus stale README/PLAN/PROJECT_STATE claims. No product/UI change, no push/merge/deploy.
+
+_Note: entries below this point predate 2026-06-19 and were not re-audited by the 2026-09-02 pass — several later reports (2026-06-17→19 defect/attribution/polish passes, and the July "uplift" train / light-mode work) exist in this directory but aren't yet indexed here._
+
 ## 2026-06-03 — Re-engage + P6 ship + P7 build (this session)
 - 🟢 [cycle-2026-06-03-morgan-pacman.md](cycle-2026-06-03-morgan-pacman.md) — Morgan: whole review + 4-phase plan (the re-engagement briefing).
 - 🟢 [cycle-2026-06-03-morgan-pacman-execution.md](cycle-2026-06-03-morgan-pacman-execution.md) — Morgan: Phase 1+2 execution wrap-up (what landed).
