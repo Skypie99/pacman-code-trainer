@@ -5,9 +5,11 @@
 > Last reconciled: **2026-06-02 (updated)** (burst `burst/pacman-2026-06-02`).
 
 ## What this project is
-A vanilla HTML/JS **flashcard game** (Pac-Man themed) for memorizing Claude Code + Mac
-terminal commands. Single file `index.html` (~1.3k lines, inline CSS+JS) + `cards.js`
-(`window.CARDS`). **Zero deps, no build, no framework, no TypeScript.**
+A vanilla HTML/JS **terminal-command trainer** — Ghost Code, the Phantom mascot, not
+Pac-Man (rebranded 2026-06-04 over trademark risk; see DECISIONS_LOG.md) — for
+memorizing Claude Code + macOS terminal + Git commands. Single file `index.html`
+(~3.3k lines, inline CSS+JS) + `cards.js` (`window.CARDS`). **Zero deps, no build, no
+framework, no TypeScript.**
 
 ## Green gate (the "type check" equivalent — run after every step)
 ```
